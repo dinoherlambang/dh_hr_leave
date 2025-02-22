@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_leave_user,access.hr.leave.user,model_hr_leave,,1,1,1,1
+access_hr_dashboard_user,access.hr.dashboard.user,model_hr_dashboard,,1,0,0,0
+access_hr_leave_settings_user,access.hr.leave.settings.user,model_hr_leave_settings,,1,1,1,1
+access_hr_leave_manager,access.hr.leave.manager,model_hr_leave,hr.group_hr_manager,1,1,1,1
+access_hr_dashboard_manager,access.hr.dashboard.manager,model_hr_dashboard,hr.group_hr_manager,1,1,1,1
+access_hr_leave_settings_manager,access.hr.leave.settings.manager,model_hr_leave_settings,hr.group_hr_manager,1,1,1,1

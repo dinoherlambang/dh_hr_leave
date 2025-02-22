@@ -1,0 +1,24 @@
+<odoo>
+    <record id="view_hr_dashboard_form" model="ir.ui.view">
+        <field name="name">hr.dashboard.form</field>
+        <field name="model">hr.dashboard</field>
+        <field name="arch" type="xml">
+            <form string="HR Dashboard">
+                <sheet>
+                    <group>
+                        <field name="total_employees" readonly="1"/>
+                        <field name="employees_on_leave" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hr_dashboard" model="ir.actions.act_window">
+        <field name="name">HR Dashboard</field>
+        <field name="res_model">hr.dashboard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_hr_dashboard_form"/>
+        <field name="target">inline</field>
+    </record>
+</odoo>
