@@ -9,6 +9,7 @@
     'author': 'Dino Herlambang',
     'depends': ['base', 'hr', 'mail'],
     'data': [
+        'security/hr_leave_groups.xml',
         'security/ir.model.access.csv',
         'security/hr_leave_security.xml',
         'views/hr_leave_views.xml',
