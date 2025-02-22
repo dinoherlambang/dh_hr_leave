@@ -15,6 +15,8 @@
         'views/hr_dashboard_views.xml',
         'views/hr_leave_settings_views.xml',
         'views/hr_leave_menus.xml',
+        'views/hr_leave_approval_views.xml',
+        'views/hr_employee_views.xml',
         'data/hr_leave_data.xml',
     ],
     'installable': True,

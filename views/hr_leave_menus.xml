@@ -4,5 +4,6 @@
     <menuitem id="menu_hr_dashboard" name="HR Dashboard" parent="menu_hr_leave_root" action="dh_hr_leave.action_hr_dashboard" sequence="5"/>
     <menuitem id="menu_hr_leave" name="Leave Requests" parent="menu_hr_leave_root" action="action_hr_leave"/>
     <menuitem id="menu_hr_leave_configuration" name="Configuration" parent="menu_hr_leave_root" sequence="20"/>
-    <menuitem id="menu_hr_leave_settings" name="Leave Settings" parent="menu_hr_leave_configuration" action="action_hr_leave_settings"/>
+    <menuitem id="menu_hr_leave_settings" name="Allowable Leave Settings" parent="menu_hr_leave_configuration" action="action_hr_leave_settings"/>
+    <menuitem id="menu_hr_leave_approval" name="Leave Approvals" parent="menu_hr_leave_configuration" action="action_hr_leave_approval" sequence="10"/>
 </odoo>

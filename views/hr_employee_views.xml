@@ -1,0 +1,25 @@
+<odoo>
+    <record id="view_employee_form_inherit_leave_settings" model="ir.ui.view">
+        <field name="name">hr.employee.form.inherit.leave.settings</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Leave Setting">
+                    <field name="leave_setting_ids" context="{'default_employee_id': id}">
+                        <tree string="Leave Settings">
+                            <field name="rank"/>
+                            <field name="allowable_days"/>
+                        </tree>
+                        <form string="Leave Setting">
+                            <group>
+                                <field name="rank"/>
+                                <field name="allowable_days" readonly="1"/>
+                            </group>
+                        </form>
+                    </field>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>

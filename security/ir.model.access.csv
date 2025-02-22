@@ -5,3 +5,5 @@ access_hr_leave_settings_user,access.hr.leave.settings.user,model_hr_leave_setti
 access_hr_leave_manager,access.hr.leave.manager,model_hr_leave,hr.group_hr_manager,1,1,1,1
 access_hr_dashboard_manager,access.hr.dashboard.manager,model_hr_dashboard,hr.group_hr_manager,1,1,1,1
 access_hr_leave_settings_manager,access.hr.leave.settings.manager,model_hr_leave_settings,hr.group_hr_manager,1,1,1,1
+access_hr_leave_approval_user,access.hr.leave.approval.user,model_hr_leave_approval,,1,0,0,0
+access_hr_leave_approval_manager,access.hr.leave.approval.manager,model_hr_leave_approval,hr.group_hr_manager,1,1,1,1
