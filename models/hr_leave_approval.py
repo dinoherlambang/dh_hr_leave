@@ -6,3 +6,4 @@ class HrLeaveApproval(models.Model):
 
     approval_manager_id = fields.Many2one('res.users', string='Approval Manager')
     approval_head_id = fields.Many2one('res.users', string='Approval Head')
+    employee_id = fields.Many2one('hr.employee', string='Employee')

@@ -11,6 +11,8 @@ class HrEmployee(models.Model):
         ('lead', 'Lead')
     ], string='Rank')
     allowable_days = fields.Integer(string='Allowable Leave Days', compute='_compute_allowable_days', store=True)
+    approval_manager_id = fields.Many2one('res.users', string='Review by')
+    approval_head_id = fields.Many2one('res.users', string='Approval By', compute='_compute_approval_head_id', store=True)
 
     @api.depends('rank')
     def _compute_allowable_days(self):
@@ -18,3 +20,10 @@ class HrEmployee(models.Model):
             if record.rank:
                 setting = self.env['hr.leave.settings'].search([('rank', '=', record.rank)], limit=1)
                 record.allowable_days = setting.allowable_days if setting else 0
+
+    @api.depends('approval_manager_id')
+    def _compute_approval_head_id(self):
+        for record in self:
+            if record.approval_manager_id:
+                approval = self.env['hr.leave.approval'].search([('approval_manager_id', '=', record.approval_manager_id.id)], limit=1)
+                record.approval_head_id = approval.approval_head_id.id if approval else False
