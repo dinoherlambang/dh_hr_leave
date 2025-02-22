@@ -5,7 +5,7 @@ class HrLeave(models.Model):
     _name = 'hr.leave'
     _description = 'HR Leave'
 
-    name = fields.Char(string='Description', required=True)
+    name = fields.Char(string='Reference', required=True, readonly=True, default='New')
     employee_id = fields.Many2one('hr.employee', string='Employee', required=True)
     start_date = fields.Date(string='Start Date', required=True)
     end_date = fields.Date(string='End Date', required=True)
@@ -22,6 +22,8 @@ class HrLeave(models.Model):
 
     @api.model
     def create(self, vals):
+        if vals.get('name', 'New') == 'New':
+            vals['name'] = self.env['ir.sequence'].next_by_code('hr.leave') or 'New'
         record = super(HrLeave, self).create(vals)
         if record.employee_id:
             approval = self.env['hr.leave.approval'].create({
@@ -72,7 +74,7 @@ class HrLeave(models.Model):
                     'res_model_id': self.env['ir.model'].search([('model', '=', 'hr.leave')], limit=1).id,
                     'res_id': leave.id,
                     'activity_type_id': self.env.ref('mail.mail_activity_data_todo').id,
-                    'summary': 'Leave Request Confirmed',
+                    'summary': 'Leave Request need to Review',
                     'note': 'A leave request from %s to %s has been confirmed.' % (leave.start_date, leave.end_date),
                     'user_id': leave.approval_id.approval_manager_id.id,
                     'date_deadline': fields.Date.today(),
@@ -85,7 +87,7 @@ class HrLeave(models.Model):
                     'res_model_id': self.env['ir.model'].search([('model', '=', 'hr.leave')], limit=1).id,
                     'res_id': leave.id,
                     'activity_type_id': self.env.ref('mail.mail_activity_data_todo').id,
-                    'summary': 'Leave Request In Review',
+                    'summary': 'Leave Request need to Approved',
                     'note': 'A leave request from %s to %s is in review.' % (leave.start_date, leave.end_date),
                     'user_id': leave.approval_id.approval_head_id.id,
                     'date_deadline': fields.Date.today(),
@@ -93,7 +95,7 @@ class HrLeave(models.Model):
 
     def _check_allowable_days(self):
         leave_days = (self.end_date - self.start_date).days + 1
-        rank = self.employee_id.job_id.name.lower()
-        allowable_days = self.env['hr.leave.settings'].search([('rank', '=', rank)], limit=1).allowable_days
+        rank = self.employee_id.rank
+        allowable_days = self.employee_id.allowable_days
         if leave_days > allowable_days:
             raise UserError('You cannot request more than %s days of leave.' % allowable_days)

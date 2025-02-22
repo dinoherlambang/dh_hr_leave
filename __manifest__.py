@@ -19,6 +19,7 @@
         'views/hr_leave_approval_views.xml',
         'views/hr_employee_views.xml',
         'data/hr_leave_data.xml',
+        'data/hr_leave_sequence.xml',
     ],
     'installable': True,
     'application': True,
