@@ -4,20 +4,21 @@
         <field name="model">hr.leave</field>
         <field name="arch" type="xml">
             <form string="Leave Request">
+                <header>
+                    <button string="Confirm" type="object" name="action_confirm" states="draft"/>
+                    <button string="Approve" type="object" name="action_approve" states="confirm"/>
+                    <button string="Refuse" type="object" name="action_refuse" states="confirm"/>
+                    <button string="Cancel" type="object" name="action_cancel" states="draft,confirm,approved"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm,approved,refused,cancel" readonly="1"/>
+                </header>
                 <sheet>
                     <group>
                         <field name="name"/>
                         <field name="employee_id"/>
                         <field name="start_date"/>
                         <field name="end_date"/>
-                        <field name="state" readonly="1"/>
                         <field name="description"/>
                     </group>
-                    <footer>
-                        <button string="Confirm" type="object" name="action_confirm" states="draft"/>
-                        <button string="Approve" type="object" name="action_approve" states="confirm"/>
-                        <button string="Refuse" type="object" name="action_refuse" states="confirm"/>
-                    </footer>
                 </sheet>
             </form>
         </field>

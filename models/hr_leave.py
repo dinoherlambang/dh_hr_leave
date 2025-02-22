@@ -14,7 +14,8 @@ class HrLeave(models.Model):
         ('draft', 'Draft'),
         ('confirm', 'Confirmed'),
         ('approved', 'Approved'),
-        ('refused', 'Refused')
+        ('refused', 'Refused'),
+        ('cancel', 'Cancelled')
     ], string='Status', default='draft')
 
     def action_confirm(self):
@@ -27,6 +28,9 @@ class HrLeave(models.Model):
 
     def action_refuse(self):
         self.write({'state': 'refused'})
+
+    def action_cancel(self):
+        self.write({'state': 'cancel'})
 
     def send_notification(self):
         for leave in self:
