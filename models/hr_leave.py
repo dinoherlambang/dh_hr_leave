@@ -13,6 +13,7 @@ class HrLeave(models.Model):
     state = fields.Selection([
         ('draft', 'Draft'),
         ('confirm', 'Confirmed'),
+        ('in_review', 'In Review'),
         ('approved', 'Approved'),
         ('refused', 'Refused'),
         ('cancel', 'Cancelled')
@@ -31,6 +32,9 @@ class HrLeave(models.Model):
 
     def action_cancel(self):
         self.write({'state': 'cancel'})
+
+    def action_in_review(self):
+        self.write({'state': 'in_review'})
 
     def send_notification(self):
         for leave in self:

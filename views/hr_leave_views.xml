@@ -5,11 +5,12 @@
         <field name="arch" type="xml">
             <form string="Leave Request">
                 <header>
+                    <button string="Submit for Review" type="object" name="action_in_review" states="draft"/>
                     <button string="Confirm" type="object" name="action_confirm" states="draft"/>
                     <button string="Approve" type="object" name="action_approve" states="confirm"/>
                     <button string="Refuse" type="object" name="action_refuse" states="confirm"/>
-                    <button string="Cancel" type="object" name="action_cancel" states="draft,confirm,approved"/>
-                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm,approved,refused,cancel" readonly="1"/>
+                    <button string="Cancel" type="object" name="action_cancel" states="draft,confirm,in_review,approved"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm,in_review,approved,refused,cancel" readonly="1"/>
                 </header>
                 <sheet>
                     <group>
