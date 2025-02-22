@@ -6,18 +6,10 @@
         <field name="arch" type="xml">
             <notebook position="inside">
                 <page string="Leave Setting">
-                    <field name="leave_setting_ids" context="{'default_employee_id': id}">
-                        <tree string="Leave Settings">
-                            <field name="rank"/>
-                            <field name="allowable_days"/>
-                        </tree>
-                        <form string="Leave Setting">
-                            <group>
-                                <field name="rank"/>
-                                <field name="allowable_days" readonly="1"/>
-                            </group>
-                        </form>
-                    </field>
+                    <group>
+                        <field name="rank" widget="selection" options="{'no_create': True}"/>
+                        <field name="allowable_days" readonly="1"/>
+                    </group>
                 </page>
             </notebook>
         </field>
