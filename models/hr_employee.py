@@ -2,8 +2,6 @@ from odoo import models, fields, api
 
 class HrEmployee(models.Model):
     _inherit = 'hr.employee'
-
-    leave_setting_ids = fields.One2many('hr.leave.settings', 'employee_id', string='Leave Settings')
     rank = fields.Selection([
         ('junior', 'Junior'),
         ('mid', 'Mid'),
