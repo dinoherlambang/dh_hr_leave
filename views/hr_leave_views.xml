@@ -5,14 +5,45 @@
         <field name="arch" type="xml">
             <form string="Leave Request">
                 <header>
-                    <button string="Submit for Review" type="object" name="action_in_review" states="draft"/>
-                    <button string="Confirm" type="object" name="action_confirm" states="draft"/>
-                    <button string="Approve" type="object" name="action_approve" states="in_review,approved" groups="dh_hr_leave.group_hr_leave_manager"/>
-                    <button string="Refuse" type="object" name="action_refuse" states="in_review,approved" groups="dh_hr_leave.group_hr_leave_manager"/>
-                    <button string="Cancel" type="object" name="action_cancel" states="draft,confirm,in_review,approved"/>
-                    <button string="Set to Draft" type="object" name="action_draft" states="in_review,approved"/>
-                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm,in_review,approved,refused,cancel" readonly="1"/>
+                    <button name="action_confirm" 
+                            string="Confirm" 
+                            type="object" 
+                            class="oe_highlight"
+                            attrs="{'invisible': [('state', '!=', 'draft')]}"
+                    />
+                    <button name="action_in_review" 
+                            string="In-Review" 
+                            type="object"
+                            groups="dh_hr_leave.group_hr_leave_manager"
+                            attrs="{'invisible': [('state', '!=', 'confirm')]}"
+                            class="oe_highlight"
+                    />
+                    <button name="action_approve" 
+                            string="Approve" 
+                            type="object" 
+                            class="oe_highlight"
+                            groups="dh_hr_leave.group_hr_leave_manager"
+                            attrs="{'invisible': [('state', '!=', 'in_review')]}"
+                    />
+                    <button name="action_refuse" 
+                            string="Refuse" 
+                            type="object"
+                            groups="dh_hr_leave.group_hr_leave_manager" 
+                            attrs="{'invisible': [('state', 'not in', ['in_review', 'approved'])]}"
+                    />
+                    <button name="action_cancel" 
+                            string="Cancel" 
+                            type="object"
+                            attrs="{'invisible': [('state', 'in', ['cancel', 'refused'])]}"
+                    />
+                    <button name="action_draft" 
+                            string="Reset to Draft" 
+                            type="object"
+                            attrs="{'invisible': [('state', 'in', ['draft', 'cancel'])]}"
+                    />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm,in_review,approved,refused,cancel"/>
                 </header>
+
                 <sheet>
                     <group>
                         <field name="name"/>
