@@ -63,6 +63,9 @@ class HrLeave(models.Model):
         self.write({'state': 'in_review'})
         self._create_activity_for_head()
 
+    def action_draft(self):
+        self.write({'state': 'draft'})
+
     def send_notification(self):
         for leave in self:
             template = self.env.ref('dh_hr_leave.leave_approval_notification')
@@ -72,7 +75,7 @@ class HrLeave(models.Model):
         for leave in self:
             if leave.approval_id and leave.approval_id.approval_manager_id:
                 self.env['mail.activity'].create({
-                    'res_model_id': self.env['ir.model'].search([('model', '=', 'hr.leave')], limit=1).id,
+                    'res_model': 'hr.leave',
                     'res_id': leave.id,
                     'activity_type_id': self.env.ref('mail.mail_activity_data_todo').id,
                     'summary': 'Leave Request needs Review',
@@ -85,7 +88,7 @@ class HrLeave(models.Model):
         for leave in self:
             if leave.approval_id and leave.approval_id.approval_head_id:
                 self.env['mail.activity'].create({
-                    'res_model_id': self.env['ir.model'].search([('model', '=', 'hr.leave')], limit=1).id,
+                    'res_model': 'hr.leave',
                     'res_id': leave.id,
                     'activity_type_id': self.env.ref('mail.mail_activity_data_todo').id,
                     'summary': 'Leave Request needs Approval',

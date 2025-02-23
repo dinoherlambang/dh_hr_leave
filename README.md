@@ -8,6 +8,8 @@ This Odoo module adds custom HR leave management with request approval and notif
 - Approve or refuse leave requests.
 - Send notifications upon leave approval.
 - Configure allowable leave days based on employee rank.
+- Prevent overlapping leave requests for the same employee.
+- Track changes and activities on leave requests.
 - View HR dashboard with total employees and employees on leave.
 
 ## Installation
