@@ -31,5 +31,5 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="menu_hr_leave_approval" name="Leave Approvals" parent="menu_hr_leave_configuration" action="action_hr_leave_approval" sequence="10"/>
+    <!-- <menuitem id="menu_hr_leave_approval" name="Leave Approvals" parent="menu_hr_leave_configuration" action="action_hr_leave_approval" sequence="10"/> -->
 </odoo>
