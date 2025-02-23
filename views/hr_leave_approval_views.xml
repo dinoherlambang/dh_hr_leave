@@ -6,8 +6,8 @@
             <form string="Leave Approval">
                 <sheet>
                     <group>
-                        <field name="approval_manager_id"/>
-                        <field name="approval_head_id"/>
+                        <field name="reviewer_id"/>
+                        <field name="approver_id"/>
                     </group>
                 </sheet>
             </form>
@@ -19,8 +19,8 @@
         <field name="model">hr.leave.approval</field>
         <field name="arch" type="xml">
             <tree string="Leave Approvals">
-                <field name="approval_manager_id"/>
-                <field name="approval_head_id"/>
+                <field name="reviewer_id"/>
+                <field name="approver_id"/>
             </tree>
         </field>
     </record>

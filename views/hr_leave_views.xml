@@ -14,7 +14,7 @@
                     <button name="action_in_review" 
                             string="In-Review" 
                             type="object"
-                            groups="dh_hr_leave.group_hr_leave_manager"
+                            groups="dh_hr_leave.group_hr_leave_reviewer"
                             attrs="{'invisible': [('state', '!=', 'confirm')]}"
                             class="oe_highlight"
                     />
@@ -22,13 +22,13 @@
                             string="Approve" 
                             type="object" 
                             class="oe_highlight"
-                            groups="dh_hr_leave.group_hr_leave_manager"
+                            groups="dh_hr_leave.group_hr_leave_approver"
                             attrs="{'invisible': [('state', '!=', 'in_review')]}"
                     />
                     <button name="action_refuse" 
                             string="Refuse" 
                             type="object"
-                            groups="dh_hr_leave.group_hr_leave_manager" 
+                            groups="dh_hr_leave.group_hr_leave_approver" 
                             attrs="{'invisible': [('state', 'not in', ['in_review', 'approved'])]}"
                     />
                     <button name="action_cancel" 
