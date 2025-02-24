@@ -11,6 +11,7 @@ class HrEmployee(models.Model):
     allowable_days = fields.Integer(string='Allowable Leave Days', compute='_compute_allowable_days', store=True)
     reviewer_id = fields.Many2one('res.users', string='Review by', domain=lambda self: self._get_reviewer_domain())
     approver_id = fields.Many2one('res.users', string='Approval By', domain=lambda self: self._get_approver_domain())
+    dashboard_id = fields.Many2one('hr.dashboard', string='Dashboard')
 
     @api.depends('rank')
     def _compute_allowable_days(self):

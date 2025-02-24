@@ -120,10 +120,6 @@ class HrLeave(models.Model):
             if overlapping_leaves:
                 raise ValidationError('You cannot request leave during this period as it overlaps with another leave request.')
 
-    # @api.depends('state')
-    # def _compute_dashboard_id(self):
-    #     for record in self:
-    #         record.dashboard_id = self.env['hr.dashboard'].search([], limit=1).id
 
     @api.depends('state')
     def _compute_dashboard_id(self):
