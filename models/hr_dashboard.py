@@ -1,3 +1,4 @@
+from datetime import timedelta
 from odoo import models, fields, api
 
 class HrDashboard(models.Model):
@@ -66,14 +67,33 @@ class HrDashboard(models.Model):
     # @api.depends()
     # def _compute_employees_on_leave_tree(self):
     #     self.employees_on_leave_tree = self.env['hr.leave'].search([('state', '=', 'approved'), ('start_date', '<=', fields.Date.today()), ('end_date', '>=', fields.Date.today())])
+    # @api.depends('leave_requests_tree.state', 'leave_requests_tree.start_date', 'leave_requests_tree.end_date')
+    # def _compute_employees_on_leave_tree(self):
+    #     today = fields.Date.today()
+    #     self.employees_on_leave_tree = self.env['hr.leave'].search([
+    #         ('state', '=', 'approved'),
+    #         ('start_date', '<=', today),
+    #         ('end_date', '>=', today)
+    #     ])
+
     @api.depends('leave_requests_tree.state', 'leave_requests_tree.start_date', 'leave_requests_tree.end_date')
     def _compute_employees_on_leave_tree(self):
-        today = fields.Date.today()
-        self.employees_on_leave_tree = self.env['hr.leave'].search([
-            ('state', '=', 'approved'),
-            ('start_date', '<=', today),
-            ('end_date', '>=', today)
-        ])
+        for record in self:
+            today = fields.Date.today()
+            start_of_month = today.replace(day=1)
+            # Get last day of current month
+            if today.month == 12:
+                end_of_month = today.replace(day=31)
+            else:
+                end_of_month = today.replace(month=today.month + 1, day=1) - timedelta(days=1)
+                
+            leaves = self.env['hr.leave'].search([
+                ('state', '=', 'approved'),
+                ('start_date', '<=', end_of_month),
+                ('end_date', '>=', start_of_month)
+            ])
+            record.employees_on_leave_tree = [(6, 0, leaves.ids)]
+
 
     # @api.depends()
     # def _compute_leave_requests_tree(self):
