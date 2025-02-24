@@ -9,3 +9,5 @@ access_hr_leave_approval_user,access.hr.leave.approval.user,model_hr_leave_appro
 access_hr_leave_approval_manager,access.hr.leave.approval.manager,model_hr_leave_approval,dh_hr_leave.group_hr_leave_manager,1,1,1,1
 access_hr_leave_reviewer,access.hr.leave.reviewer,model_hr_leave,dh_hr_leave.group_hr_leave_reviewer,1,1,1,1
 access_hr_leave_approver,access.hr.leave.approver,model_hr_leave,dh_hr_leave.group_hr_leave_approver,1,1,1,1
+access_hr_leave_approval_reviewer,access.hr.leave.approval.reviewer,model_hr_leave_approval,dh_hr_leave.group_hr_leave_reviewer,1,1,1,1
+access_hr_leave_approval_approver,access.hr.leave.approval.approver,model_hr_leave_approval,dh_hr_leave.group_hr_leave_approver,1,1,1,1

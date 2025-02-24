@@ -28,8 +28,8 @@ class HrLeave(models.Model):
         record = super(HrLeave, self).create(vals)
         if record.employee_id:
             approval = self.env['hr.leave.approval'].create({
-                'reviewer_id': record.employee_id.user_id.id,
-                'approver_id': record.employee_id.user_id.id,
+                'reviewer_id': record.employee_id.reviewer_id.id,
+                'approver_id': record.employee_id.approver_id.id,
             })
             record.approval_id = approval.id
         return record
@@ -39,8 +39,8 @@ class HrLeave(models.Model):
         for record in self:
             if record.employee_id and record.approval_id:
                 record.approval_id.write({
-                    'reviewer_id': record.employee_id.user_id.id,
-                    'approver_id': record.employee_id.user_id.id,
+                    'reviewer_id': record.employee_id.reviewer_id.id,
+                    'approver_id': record.employee_id.approver_id.id,
                 })
         return res
 
