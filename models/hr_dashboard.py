@@ -23,8 +23,8 @@ class HrDashboard(models.Model):
     average_leave_duration = fields.Float(string='Average Leave Duration (days)', compute='_compute_average_leave_duration')
     employees_on_leave_tree = fields.One2many('hr.leave', 'dashboard_id', string='Employees on Leave This Month', compute='_compute_employees_on_leave_tree', store=True)
     leave_requests_tree = fields.One2many('hr.leave', 'dashboard_id', string='Leave Requests', compute='_compute_leave_requests_tree', store=True)
-    # departments_tree = fields.One2many('hr.department', 'dashboard_id', string='Leaves this day', compute='_compute_departments_tree', store=True)
-    departments_tree = fields.One2many('hr.department', 'dashboard_id', string='Departments')
+    departments_tree = fields.One2many('hr.department', 'dashboard_id', string='Leaves this day', compute='_compute_departments_tree', store=True)
+    # departments_tree = fields.One2many('hr.department', 'dashboard_id', string='Departments')
     employee_leaves_tree = fields.One2many('hr.employee', 'dashboard_id', string='Total Leaves Taken', compute='_compute_employee_leaves_tree', store=True)
 
  
@@ -83,14 +83,14 @@ class HrDashboard(models.Model):
             ('state', 'not in', ['cancel'])
         ])
 
-    # @api.depends('leave_requests_tree.state', 'leave_requests_tree.start_date', 'leave_requests_tree.end_date')
-    # def _compute_departments_tree(self):
-    #     for record in self:
-    #         today = fields.Date.today()
-    #         departments = self.env['hr.department'].search([
-    #             ('leave_date', '=', today)
-    #         ])
-    #         record.departments_tree = [(6, 0, departments.ids)]
+    @api.depends('leave_requests_tree.state', 'leave_requests_tree.start_date', 'leave_requests_tree.end_date')
+    def _compute_departments_tree(self):
+        for record in self:
+            today = fields.Date.today()
+            departments = self.env['hr.department'].search([
+                ('leave_date', '=', today)
+            ])
+            record.departments_tree = [(6, 0, departments.ids)]
 
     @api.depends('leave_requests_tree.state', 'leave_requests_tree.start_date', 'leave_requests_tree.end_date')
     def _compute_employee_leaves_tree(self):
