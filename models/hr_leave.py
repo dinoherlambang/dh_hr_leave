@@ -20,6 +20,7 @@ class HrLeave(models.Model):
         ('cancel', 'Cancelled')
     ], string='Status', default='draft', track_visibility='onchange')
     approval_id = fields.Many2one('hr.leave.approval', string='Approval')
+    dashboard_id = fields.Many2one('hr.dashboard', string='Dashboard', compute='_compute_dashboard_id', store=True, readonly=False)
 
     @api.model
     def create(self, vals):
@@ -118,3 +119,15 @@ class HrLeave(models.Model):
             ])
             if overlapping_leaves:
                 raise ValidationError('You cannot request leave during this period as it overlaps with another leave request.')
+
+    # @api.depends('state')
+    # def _compute_dashboard_id(self):
+    #     for record in self:
+    #         record.dashboard_id = self.env['hr.dashboard'].search([], limit=1).id
+
+    @api.depends('state')
+    def _compute_dashboard_id(self):
+        dashboard = self.env['hr.dashboard'].search([], limit=1)
+        for record in self:
+            record.dashboard_id = dashboard.id if dashboard else False
+

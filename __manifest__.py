@@ -1,17 +1,16 @@
 {
-    'name': 'HR Leave and Approval',
+    'name': 'HR Leave Management',
     'version': '1.0',
     'category': 'Human Resources',
-    'summary': 'Custom HR Leave Management with Approval and Notifications',
+    'summary': 'Manage employee leaves',
     'description': """
-        This module adds custom HR leave management with request approval and notifications.
+        This module helps you to manage employee leaves.
     """,
     'author': 'Dino Herlambang',
     'depends': ['base', 'hr', 'mail'],
     'data': [
-        'security/hr_leave_groups.xml',
-        'security/ir.model.access.csv',
         'security/hr_leave_security.xml',
+        'security/ir.model.access.csv',
         'views/hr_leave_views.xml',
         'views/hr_dashboard_views.xml',
         'views/hr_leave_settings_views.xml',
