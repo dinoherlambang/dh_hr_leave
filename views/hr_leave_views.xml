@@ -48,8 +48,8 @@
                     <group>
                         <field name="name"/>
                         <field name="employee_id"/>
-                        <field name="start_date"/>
-                        <field name="end_date"/>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
                         <field name="description"/>
                     </group>
                 </sheet>
@@ -69,8 +69,8 @@
             <tree string="Leave Requests">
                 <field name="name"/>
                 <field name="employee_id"/>
-                <field name="start_date"/>
-                <field name="end_date"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
                 <field name="state"/>
             </tree>
         </field>

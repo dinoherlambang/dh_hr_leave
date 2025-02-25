@@ -8,8 +8,8 @@ class HrLeave(models.Model):
 
     name = fields.Char(string='Reference', required=True, readonly=True, default='New', track_visibility='onchange')
     employee_id = fields.Many2one('hr.employee', string='Employee', required=True, track_visibility='onchange')
-    start_date = fields.Date(string='Start Date', required=True, track_visibility='onchange')
-    end_date = fields.Date(string='End Date', required=True, track_visibility='onchange')
+    date_from = fields.Date(string='Start Date', required=True, track_visibility='onchange')
+    date_to = fields.Date(string='End Date', required=True, track_visibility='onchange')
     description = fields.Text(string='Description', track_visibility='onchange')
     state = fields.Selection([
         ('draft', 'Draft'),
@@ -58,7 +58,7 @@ class HrLeave(models.Model):
                 'res_id': self.id,
                 'activity_type_id': self.env.ref('mail.mail_activity_data_todo').id,
                 'summary': 'Leave Request needs Review',
-                'note': 'A leave request from %s to %s has been confirmed.' % (self.start_date, self.end_date),
+                'note': 'A leave request from %s to %s has been confirmed.' % (self.date_from, self.date_to),
                 'user_id': self.approval_id.reviewer_id.id,
                 'date_deadline': fields.Date.today(),
             })
@@ -87,7 +87,7 @@ class HrLeave(models.Model):
                 'res_id': self.id,
                 'activity_type_id': self.env.ref('mail.mail_activity_data_todo').id,
                 'summary': 'Leave Request needs Approval',
-                'note': 'A leave request from %s to %s is in review.' % (self.start_date, self.end_date),
+                'note': 'A leave request from %s to %s is in review.' % (self.date_from, self.date_to),
                 'user_id': self.approval_id.approver_id.id,
                 'date_deadline': fields.Date.today(),
             })
@@ -101,21 +101,21 @@ class HrLeave(models.Model):
             self.env['mail.template'].browse(template.id).send_mail(leave.id, force_send=True)
 
     def _check_allowable_days(self):
-        leave_days = (self.end_date - self.start_date).days + 1
+        leave_days = (self.date_to - self.date_from).days + 1
         rank = self.employee_id.rank
         allowable_days = self.employee_id.allowable_days
         if leave_days > allowable_days:
             raise UserError('You cannot request more than %s days of leave.' % allowable_days)
 
-    @api.constrains('employee_id', 'start_date', 'end_date')
+    @api.constrains('employee_id', 'date_from', 'date_to')
     def _check_overlapping_leaves(self):
         for record in self:
             overlapping_leaves = self.env['hr.leave'].search([
                 ('employee_id', '=', record.employee_id.id),
                 ('id', '!=', record.id),
                 ('state', 'not in', ['cancel', 'refused']),
-                ('start_date', '<=', record.end_date),
-                ('end_date', '>=', record.start_date),
+                ('date_from', '<=', record.date_to),
+                ('date_to', '>=', record.date_from),
             ])
             if overlapping_leaves:
                 raise ValidationError('You cannot request leave during this period as it overlaps with another leave request.')

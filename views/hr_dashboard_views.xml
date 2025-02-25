@@ -18,25 +18,37 @@
                     </group>
                     <group>
                         <group string="Employees on Leave This Month">
-                            <field name="employees_on_leave_tree" readonly="1">
+                            <field name="employees_on_leave_ids" readonly="1">
                                 <tree>
                                     <field name="employee_id"/>
-                                    <field name="start_date"/>
-                                    <field name="end_date"/>
+                                    <field name="date_from"/>
+                                    <field name="date_to"/>
                                 </tree>
                             </field>
                         </group>
                         <group string="Leave Requests">
-                            <field name="leave_requests_tree" readonly="1">
+                            <field name="leave_request_ids" readonly="1">
                                 <tree>
                                     <field name="name"/>
                                     <field name="employee_id"/>
-                                    <field name="start_date"/>
-                                    <field name="end_date"/>
+                                    <field name="date_from"/>
+                                    <field name="date_to"/>
                                     <field name="state"/>
                                 </tree>
                             </field>
                         </group>
+                    </group>
+                    
+                    <!-- Add the new section after existing groups -->
+                    <group string="Employee Leaves Summary">
+                        <field name="employee_leaves_ids" readonly="1" nolabel="1">
+                            <tree>
+                                <field name="name"/>
+                                <field name="department_id"/>
+                                <field name="job_id"/>
+                                <field name="total_leaves_taken"/>
+                            </tree>
+                        </field>
                     </group>
                 </sheet>
             </form>

@@ -8,7 +8,7 @@
         <field name="body_html">
             <![CDATA[
                 <p>Dear ${object.employee_id.name},</p>
-                <p>Your leave request from ${object.start_date} to ${object.end_date} has been approved.</p>
+                <p>Your leave request from ${object.date_from} to ${object.date_to} has been approved.</p>
                 <p>Regards,</p>
                 <p>${(user.name or '')|safe}</p>
             ]]>
